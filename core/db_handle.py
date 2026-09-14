@@ -18,3 +18,6 @@ def db_query(elemnt,tabela,condicao=''):
     cur,con = get_db_handlrs()
     res = cur.execute(f'select {elemnt} from {tabela} {condicao}')
     return res.fetchall()
+
+def db_update():
+    pass

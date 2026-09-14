@@ -51,3 +51,19 @@
     #total-itens{display: none;}
     #add-mais{font-size: 10px; text-decoration: underline;}
     #add-mais:hover,#add-mais:active{color:gray}
+
+/*pag de estoque*/
+.produto-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 12px 0;
+    width: 320px;
+    background: #f9f9f9;
+}
+
+.form-edicao {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}

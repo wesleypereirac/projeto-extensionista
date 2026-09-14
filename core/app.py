@@ -30,9 +30,23 @@ def cad():
         return render_template('cadastrar.html')
         
 
+@app.route('/atualizar', methods=['POST'])
+def atualizar():
+    id_produto = request.form.get('id')
+    nome = request.form.get('nome')
+    valor = request.form.get('valor')
+    qtd = request.form.get('qtd')
+
+    db_handle.db_update('produtos', id_produto, (nome, valor, qtd))  # você adapta sua função
+
+    flash("Produto atualizado com sucesso!", "success")
+    return redirect(url_for('estoque'))
+
+
 @app.route('/estoque')
 def estoque():
     lista_dados = db_handle.db_query('*','produtos')
+
     return render_template('estoque.html',context=lista_dados)
 
 
