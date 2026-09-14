@@ -1,7 +1,7 @@
 import sqlite3
 
 def get_db_handlrs():
-    con = sqlite3.connect('data.db')
+    con = sqlite3.connect('data/data.db')
     cur = con.cursor()
     #remover linha abaixo
     cur.execute('create table if not exists produtos(pk INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, valor DECIMAL, qtd INTEGER)')

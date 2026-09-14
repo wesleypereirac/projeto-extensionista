@@ -48,6 +48,19 @@
 </body>
 
 <script>
+
+// Faz a mensagem sumir depois de 3 segundos
+  setTimeout(function() {
+    const msg = document.getElementById('flash-msg');
+    if (msg) {
+      msg.style.transition = 'opacity 0.5s';
+      msg.style.opacity = '0';
+      
+      // Remove do HTML depois da animação
+      setTimeout(() => msg.remove(), 500);
+    }
+  }, 3000); // 3000ms = 3 segundos
+  
 let btn_add_mais = document.querySelector('#add-mais')
 let tag_total_itens = document.querySelector('#total-itens')
 
