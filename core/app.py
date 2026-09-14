@@ -1,4 +1,4 @@
-import core.db_handle as db_handle
+import db_handle as db_handle
 from flask import Flask, request, render_template, flash, redirect, url_for
 
 app = Flask('app.py')
