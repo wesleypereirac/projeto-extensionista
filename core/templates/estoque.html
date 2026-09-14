@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Cadastrar Produto</title>
+</head>
+
+<body>
+{% for reg in data %}
+<div class="produto">
+    <span>{{reg[0]}}</span>
+    <span>{{reg[1]}}</span>
+    <span>{{reg[2]}}</span>
+</div>
+{% endfor %}
+
+</body>
+</html>

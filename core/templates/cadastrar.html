@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Cadastrar Produto</title>
+</head>
+
+<body>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="mensagem-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<span id="total-itens">0 itens adicionados.</span>
+<form class="form" action="/cadastrar" method="POST">
+
+  <div class="input">
+    <span>Nome Produto: </span>
+    <input name="nome_produto">
+  </div>
+
+  <div class="input">
+    <span>Valor: </span>
+    <input name="valor_produto">
+  </div>
+
+  <div class="input">
+    <span>Qtd.: </span>
+    <input name="qtd_produto">
+  </div>
+
+  <div class="enviar">
+       <input type="submit" value="Enviar">
+  </div>
+
+</form>
+
+<span id="add-mais">add outro produto</span>
+<span id="ver-estoque"> Ver Estoque</span>
+</body>
+
+<script>
+let btn_add_mais = document.querySelector('#add-mais')
+let tag_total_itens = document.querySelector('#total-itens')
+
+console.log(btn_add_mais)
+console.log(tag_total_itens)
+
+let total_itens = 0
+
+btn_add_mais.addEventListener('click',()=>{
+
+    //mostrar o total
+    if (getComputedStyle(tag_total_itens).display === 'none') {
+    console.log('debug: alterando display')
+    tag_total_itens.style.display = 'block'
+}
+
+
+    //obs: deve incrementar e limpar apenas se campo estiver com item
+    //incrementar
+    total_itens += 1    
+    tag_total_itens.innerHTML = `${total_itens} itens adicionados`
+    
+
+    //limpar campo (precisa ter feito submit antes)
+    let inputs = document.querySelectorAll('.input input')
+    inputs.forEach((x)=>{
+         x.value = ''
+})
+    //alert('add maia clicado') 
+    })
+</script>
+</html>
