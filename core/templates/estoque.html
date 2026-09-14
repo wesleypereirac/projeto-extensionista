@@ -13,50 +13,124 @@
         body{
             text-align: center;
         }
+        #btn-cadastrar-produto{
+            width: 100px;
+            height: 50px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: yellow;
+        }
+        #btn-cadastrar-produto a {
+            text-decoration: none;   /* remove o sublinhado */
+            color: inherit;          /* herda a cor do elemento pai */
+        }
+
+        #btn-cadastrar-produto a:visited {
+            color: inherit;          /* mantém a mesma cor depois de clicar */
+        }
+
+        #btn-cadastrar-produto a:hover {
+            color: inherit;          /* opcional: mantém a cor no hover */
+        }
+
+        #btn-cadastrar-produto a:active {
+            color: inherit;          /* opcional: mantém a cor ao clicar */
+        }
     </style>
     <title>Estoque</title>
 </head>
 <body >
-     <h2>Estoque</h2>
+    <h2>Estoque</h2>
 
-<div class="cont">
+    <span id="btn-cadastrar-produto"><a href="/cadastrar">CADASTRAR PRODUTO</a></span>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="mensagem-{{ category }} flash-msg">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-    {% for reg in context %}
-    <div class="produto-card">
-        <p>
-            <!-- <strong>ID:</strong> {{ reg[0] }} <br> -->
-            <strong>Nome:</strong> {{ reg[1] }} <br>
-            <strong>Valor:</strong> R$ {{ reg[2] }} <br>
-            <strong>Qtd:</strong> {{ reg[3] }}
-        </p>
+    <div class="cont">
 
-        <button type="button" onclick="abrirEdicao({{ reg[0] }})">Editar</button>
-        <button type="button" onclick="confirmarDelete({{ reg[0] }}, '{{ reg[1] }}')">Deletar</button>
+        {% for reg in context %}
+        <div class="produto-card">
+            <p>
+                <!-- <strong>ID:</strong> {{ reg[0] }} <br> -->
+                <strong>Nome:</strong> {{ reg[1] }} <br>
+                <strong>Valor:</strong> R$ {{ reg[2] }} <br>
+                <strong>Qtd:</strong> {{ reg[3] }}
+            </p>
 
-        <form action="/atualizar" method="POST" id="form-{{ reg[0] }}" style="display: none; margin-top: 10px;">
-            <input type="hidden" name="id" value="{{ reg[0] }}">
+            <button type="button" onclick="abrirEdicao({{ reg[0] }})">Editar</button>
+            <button type="button" onclick="confirmarDelete({{ reg[0] }}, '{{ reg[1] }}')">Deletar</button>
+            <button type="button" onclick="retirarQtd('{{ reg[1] }}', {{ reg[3] }})">Retirar</button>
 
-            <div class="input">
-                <input type="text" name="nome" value="{{ reg[1] }}" placeholder="Nome">
-            </div>
-            <div class="input">
-                <input type="number" name="valor" value="{{ reg[2] }}" step="0.01" placeholder="Valor">
-            </div>
-            <div class="input">
-                <input type="number" name="qtd" value="{{ reg[3] }}" placeholder="Quantidade">
-            </div>
+            <form action="/atualizar" method="POST" id="form-{{ reg[0] }}" style="display: none; margin-top: 10px;">
+                <input type="hidden" name="id" value="{{ reg[0] }}">
 
-            <div class="enviar">
-                <button type="submit">Salvar</button>
-                <button type="button" onclick="fecharEdicao({{ reg[0] }})">Cancelar</button>
-            </div>
-        </form>
+                <div class="input">
+                    <input type="text" name="nome" value="{{ reg[1] }}" placeholder="Nome">
+                </div>
+                <div class="input">
+                    <input type="number" name="valor" value="{{ reg[2] }}" step="0.01" placeholder="Valor">
+                </div>
+                <div class="input">
+                    <input type="number" name="qtd" value="{{ reg[3] }}" placeholder="Quantidade">
+                </div>
+
+                <div class="enviar">
+                    <button type="submit">Salvar</button>
+                    <button type="button" onclick="fecharEdicao({{ reg[0] }})">Cancelar</button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+            <p>Nenhum produto cadastrado.</p>
+        {% endfor %}
     </div>
-    {% else %}
-        <p>Nenhum produto cadastrado.</p>
-    {% endfor %}
-</div>
     <script>
+        function retirarQtd(nome, qtdAtual) {
+    const qtd = prompt(`Quantidade atual: ${qtdAtual}\nQuanto deseja retirar?`);
+
+    if (qtd === null) return; // cancelou
+
+    const qtdNum = parseInt(qtd);
+
+    if (isNaN(qtdNum) || qtdNum <= 0) {
+        alert("Digite uma quantidade válida.");
+        return;
+    }
+
+    if (qtdNum > qtdAtual) {
+        alert("Não é possível retirar mais do que a quantidade em estoque.");
+        return;
+    }
+
+    // Envia para o backend
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/retirar';
+
+    const inputNome = document.createElement('input');
+    inputNome.type = 'hidden';
+    inputNome.name = 'nome';
+    inputNome.value = nome;
+
+    const inputQtd = document.createElement('input');
+    inputQtd.type = 'hidden';
+    inputQtd.name = 'qtd';
+    inputQtd.value = qtdNum;
+
+    form.appendChild(inputNome);
+    form.appendChild(inputQtd);
+    document.body.appendChild(form);
+    form.submit();
+}
+
         function abrirEdicao(id) {
             document.getElementById('form-' + id).style.display = 'block';
         }
@@ -85,6 +159,6 @@
     }
 }
     </script>
-
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

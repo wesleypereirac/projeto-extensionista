@@ -62,3 +62,28 @@ def db_delete(tabela, id_produto):
     cur, con = get_db_handlrs()
     cur.execute(f'DELETE FROM {tabela} WHERE pk = ?', (id_produto,))
     con.commit()
+
+#remover qtd
+def remover_qtd(tabela, nome, qtd_retirar):
+    cur, con = get_db_handlrs()
+
+    # Busca a quantidade atual pela PK (nome)
+    cur.execute(f'SELECT qtd FROM {tabela} WHERE nome = ?', (nome,))
+    resultado = cur.fetchone()
+
+    if not resultado:
+        return False  # produto não encontrado
+
+    qtd_atual = resultado[0]
+
+    if qtd_retirar > qtd_atual:
+        return False  # tentou tirar mais do que tem
+
+    nova_qtd = qtd_atual - qtd_retirar
+
+    cur.execute(
+        f'UPDATE {tabela} SET qtd = ? WHERE nome = ?',
+        (nova_qtd, nome)
+    )
+    con.commit()
+    return True

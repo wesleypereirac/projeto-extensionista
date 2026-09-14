@@ -20,7 +20,7 @@ def cad():
         valor = request.form.get('valor_produto')
         qtd = request.form.get('qtd_produto')
     
-        db_handle.db_insert('produtos',(nome,valor,qtd))
+        db_handle.db_insert_or_update_qtd('produtos',(nome,valor,qtd))
 
         #indicar sucesso
         flash("Produto cadastrado com sucesso!", "success") 
@@ -56,6 +56,27 @@ def deletar():
     db_handle.db_delete('produtos', id_produto)  # adapte para sua função
 
     flash("Produto excluído com sucesso!", "success")
+    return redirect(url_for('estoque'))
+
+#trata ratirar x qtd de produto
+@app.route('/retirar', methods=['POST'])
+def retirar():
+    nome = request.form.get('nome')
+    qtd = request.form.get('qtd')
+
+    try:
+        qtd = int(qtd)
+    except (TypeError, ValueError):
+        flash("Quantidade inválida.", "error")
+        return redirect(url_for('estoque'))
+
+    sucesso = db_handle.remover_qtd('produtos', nome, qtd)
+
+    if sucesso:
+        flash("Quantidade retirada com sucesso!", "success")
+    else:
+        flash("Não foi possível retirar a quantidade.", "error")
+
     return redirect(url_for('estoque'))
 
 #run
