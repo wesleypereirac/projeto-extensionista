@@ -9,6 +9,7 @@
 
 <body>
 
+  <div class="cont">
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
@@ -44,6 +45,7 @@
 
 </form>
 <span id="ver-estoque"> Ver Estoque</span>
+</div>
 </body>
 
 <script>

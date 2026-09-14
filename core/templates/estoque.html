@@ -4,16 +4,27 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .cont{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+        body{
+            text-align: center;
+        }
+    </style>
     <title>Estoque</title>
 </head>
-<body style="display:flex; flex-direction: row;">
+<body >
+     <h2>Estoque</h2>
 
-    <h2>Estoque</h2>
+<div class="cont">
 
     {% for reg in context %}
     <div class="produto-card">
         <p>
-            <strong>ID:</strong> {{ reg[0] }} <br>
+            <!-- <strong>ID:</strong> {{ reg[0] }} <br> -->
             <strong>Nome:</strong> {{ reg[1] }} <br>
             <strong>Valor:</strong> R$ {{ reg[2] }} <br>
             <strong>Qtd:</strong> {{ reg[3] }}
@@ -43,7 +54,7 @@
     {% else %}
         <p>Nenhum produto cadastrado.</p>
     {% endfor %}
-
+</div>
     <script>
         function abrirEdicao(id) {
             document.getElementById('form-' + id).style.display = 'block';
