@@ -31,6 +31,7 @@
         </p>
 
         <button type="button" onclick="abrirEdicao({{ reg[0] }})">Editar</button>
+        <button type="button" onclick="confirmarDelete({{ reg[0] }}, '{{ reg[1] }}')">Deletar</button>
 
         <form action="/atualizar" method="POST" id="form-{{ reg[0] }}" style="display: none; margin-top: 10px;">
             <input type="hidden" name="id" value="{{ reg[0] }}">
@@ -63,6 +64,26 @@
         function fecharEdicao(id) {
             document.getElementById('form-' + id).style.display = 'none';
         }
+
+        function confirmarDelete(id, nome) {
+    const confirmou = confirm(`Tem certeza que deseja excluir o produto "${nome}"?`);
+
+    if (confirmou) {
+        // Cria um formulário temporário e envia
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/deletar';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'id';
+        input.value = id;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
     </script>
 
 </body>

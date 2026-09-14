@@ -49,6 +49,14 @@ def estoque():
 
     return render_template('estoque.html',context=lista_dados)
 
+@app.route('/deletar', methods=['POST'])
+def deletar():
+    id_produto = request.form.get('id')
+
+    db_handle.db_delete('produtos', id_produto)  # adapte para sua função
+
+    flash("Produto excluído com sucesso!", "success")
+    return redirect(url_for('estoque'))
 
 #run
 app.run(debug=True)
