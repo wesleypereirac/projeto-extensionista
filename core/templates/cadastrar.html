@@ -12,12 +12,13 @@
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
-      <div class="mensagem-{{ category }}">
+      <div class="mensagem-{{ category }} flash-msg">
         {{ message }}
       </div>
     {% endfor %}
   {% endif %}
 {% endwith %}
+
 
 <span id="total-itens">0 itens adicionados.</span>
 <form class="form" action="/cadastrar" method="POST">
@@ -49,18 +50,23 @@
 
 <script>
 
-// Faz a mensagem sumir depois de 3 segundos
-  setTimeout(function() {
-    const msg = document.getElementById('flash-msg');
-    if (msg) {
-      msg.style.transition = 'opacity 0.5s';
-      msg.style.opacity = '0';
-      
-      // Remove do HTML depois da animação
-      setTimeout(() => msg.remove(), 500);
-    }
-  }, 3000); // 3000ms = 3 segundos
-  
+// Faz a mensagem sumir depois de 3 segundos (se ela existir)
+document.addEventListener('DOMContentLoaded', function() {
+    const mensagens = document.querySelectorAll('.flash-msg');
+
+    mensagens.forEach(function(msg) {
+      setTimeout(function() {
+        msg.style.transition = 'opacity 0.5s ease';
+        msg.style.opacity = '0';
+
+        setTimeout(function() {
+          msg.remove();
+        }, 500);
+      }, 3000);
+    });
+  });
+
+
 let btn_add_mais = document.querySelector('#add-mais')
 let tag_total_itens = document.querySelector('#total-itens')
 
