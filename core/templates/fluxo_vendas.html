@@ -12,12 +12,30 @@
         .list-vendas{
             padding-top: 50px;
             text-align: left;
+            width: 100%;
         }
         
         .registro-venda{
             text-align: left;
 
         }
+
+        .div-lista{
+            width: 100%;
+        }
+
+        .card_valor{
+            width: 160px;
+            height: 90px;
+            background-color: gray;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            color: white;
+        }
+
+
+    
     </style>
 </head>
 <body>
@@ -43,15 +61,30 @@
 
     <div class="list-vendas">
         <h2>Histórico Vendas: </h2>
+        
         <!-- obs: mostrar só ultimos 3 dias? e ter botao pra carregar historico todo? -->
         <!-- lista do mesmo dia juntas (separa dias com espaço consideravel) e ordena de acordo com a hora (mais recente) -->
         <!-- reutilizar card to estoque? -->
 
+        <form method="POST" action="/listar_vendas">
+            <select name="filtro" id="filtro">
+                <option value="last3days">Últimos 3 dias</option>
+                <option value="last7days">Últimos 7 dias</option>
+                <option value="last30days">Últimos 30 dias</option>
+                <option value="last1year">Último ano</option>
+            </select>
+
+            <button type="submit">Filtrar</button>
+        </form>
+
+        <span>Filtro:  {{ context[-1] }}</span>
+        
         <div class="div-lista">
-            {% for reg in context %}
+            {% for reg in context[:-1] %}
             <div class="card_valor">
-                <span>Registro</span>  <!-- bold e centralizada -->
-                <span>{{ reg[0] }}</span>
+                <span class="card-name">Registro</span>  <!-- bold e centralizada -->
+                <span class="card-val">R$: {{ reg[1] }}</span>
+                <span class="card-val">Data: {{ reg[2] }}</span>
             </div>
             {% endfor %}
         </div>
