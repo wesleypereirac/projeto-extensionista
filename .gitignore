@@ -1,4 +1,4 @@
 core/venv/
 core/__pycache__/
 guia.md
-core/data/
+core/data/data.db
