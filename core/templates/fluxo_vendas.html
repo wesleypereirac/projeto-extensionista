@@ -9,7 +9,7 @@
 
     <style>
         
-        .vendas{
+        .list-vendas{
             padding-top: 50px;
             text-align: left;
         }
@@ -41,10 +41,20 @@
         </form>
     </div>
 
-    <div class="vendas">
+    <div class="list-vendas">
         <h2>Histórico Vendas: </h2>
         <!-- obs: mostrar só ultimos 3 dias? e ter botao pra carregar historico todo? -->
         <!-- lista do mesmo dia juntas (separa dias com espaço consideravel) e ordena de acordo com a hora (mais recente) -->
+        <!-- reutilizar card to estoque? -->
+
+        <div class="div-lista">
+            {% for reg in context %}
+            <div class="card_valor">
+                <span>Registro</span>  <!-- bold e centralizada -->
+                <span>{{ reg[0] }}</span>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
     <script src="{{ url_for('static',filename='global_script.js') }}"></script>

@@ -46,8 +46,7 @@ def db_insert_or_update_qtd(tabela, valores: tuple):
                 )
             con.commit()
 
-    elif tabela == 'fluxo_vendas':
-        print('****INSERINDO REG VENDA')
+    elif tabela == 'fluxo_caixa':
         cur.execute(
             f"INSERT INTO {tabela} (valor, data_hora_operacao) VALUES (?, datetime('now', 'localtime'))",
             (valores[0]) #valor

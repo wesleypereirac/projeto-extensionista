@@ -94,6 +94,26 @@ def reg_venda():
     else:
         return render_template('fluxo_vendas.html')
 
+@app.route('/listar_vendas',methods=['GET'])
+def list_vendas():
+    filtro = request.form.get('filtro')
+
+    if filtro == 'last3days':
+        periodo = '-2 days'
+
+    elif filtro == 'last7days':
+        periodo = '-6 days'
+
+    elif filtro == 'last1year':
+        periodo = '-1 year'
+
+    list_regs = db_handle.db_query(
+        '*',
+        'fluxo_caixa',
+        f"""WHERE data_hora_operacao >= datetime('now', 'localtime', '{periodo}', 'start of day')
+        AND data_hora_operacao <= datetime('now', 'localtime')"""
+    )
+    return render_template('fluxo_vendas.html',context=list_regs)
 
 #run
 app.run(debug=True)
