@@ -30,7 +30,8 @@
     <h2>Estoque</h2>
 
     <span id="btn-cadastrar-produto"><a class="destylize-a-tag" href="/cadastrar">CADASTRAR PRODUTO</a></span>
-    
+    <span id="btn-fluxo-caixa"><a class="destylize-a-tag" href="/fluxo-financas">VER FLUXO FINANCAS</a></span>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for category, message in messages %}
@@ -79,7 +80,7 @@
             <p>Nenhum produto cadastrado.</p>
         {% endfor %}
     </div>
-    <script scr="{{ url_for('static', filename='estoque_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='estoque_script.js') }}"></script>
     <script src="{{ url_for('static', filename='global_script.js') }}"></script>
 </body>
 </html>

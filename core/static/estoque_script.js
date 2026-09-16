@@ -1,4 +1,3 @@
-
 function retirarQtd(nome, qtdAtual) {
     qtdAtual = parseInt(qtdAtual);
     const qtd = prompt(`Quantidade atual: ${qtdAtual}\nQuanto deseja retirar?`);

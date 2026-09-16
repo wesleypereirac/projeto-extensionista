@@ -4,8 +4,9 @@ from flask import Flask, request, render_template, flash, redirect, url_for
 app = Flask('app.py')
 app.config["SECRET_KEY"] = "wlsec"
 
+#BLOCO: estoque
 
-#rendereizar estoque;
+##rendereizar estoque;
 @app.route('/')
 def index():
     return redirect(url_for('estoque')) 
@@ -78,6 +79,10 @@ def retirar():
         flash("Não foi possível retirar a quantidade.", "error")
 
     return redirect(url_for('estoque'))
+
+#BLOCO: finanças
+
+
 
 #run
 app.run(debug=True)
