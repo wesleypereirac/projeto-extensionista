@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+  <h1>Cadastrar Produto</h1>
   <div class="cont">
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
@@ -22,7 +22,7 @@
 
 
 <span id="total-itens">0 itens adicionados.</span>
-<form class="form" action="/cadastrar" method="POST">
+<form class="form" action="/cadastrar_produto" method="POST">
 
   <div class="input">
     <span>Nome Produto: </span>

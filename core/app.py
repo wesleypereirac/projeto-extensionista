@@ -14,7 +14,7 @@ def index():
 
 #cadastr. produtos
 #acho q teria q usar lib request e verificar se é post
-@app.route('/cadastrar',methods=["GET","POST"])
+@app.route('/cadastrar_produto',methods=["GET","POST"])
 def cad():
     if request.method == "POST":
         nome = request.form.get('nome_produto')
@@ -80,8 +80,19 @@ def retirar():
 
     return redirect(url_for('estoque'))
 
-#BLOCO: finanças
 
+#BLOCO: finanças
+@app.route('/registrar_venda', methods=['GET', 'POST'])
+def reg_venda():
+
+    if request.method == "POST":
+        valor = request.form.get('valor_venda')
+        db_handle.db_insert_or_update_qtd('fluxo_caixa',(valor))
+        flash("Venda registrada com sucesso!", "success") 
+        return redirect(url_for("reg_venda"))
+    
+    else:
+        return render_template('fluxo_vendas.html')
 
 
 #run

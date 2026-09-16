@@ -84,3 +84,8 @@
 .destylize-a-tag:active {
     color: inherit;          /*  mantém a cor ao clicar */
 }
+
+
+body{
+    text-align: center;
+}

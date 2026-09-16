@@ -4,12 +4,15 @@ import sqlite3
 def get_db_handlrs():
     con = sqlite3.connect('data/data.db')
     cur = con.cursor()
-    #remover linha abaixo
+    
     cur.execute('create table if not exists produtos(pk INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, valor DECIMAL, qtd INTEGER)')
+    con.commit()
+
+    cur.execute('create table if not exists fluxo_caixa(pk INTEGER PRIMARY KEY AUTOINCREMENT, valor DECIMAL, data_hora_operacao TEXT)')
     con.commit()
     return cur,con
 
-#cadastrar ou incrementar qtd
+#operacoes de estoque
 def db_insert_or_update_qtd(tabela, valores: tuple):
     """
     valores = (nome, valor, qtd)
@@ -17,29 +20,40 @@ def db_insert_or_update_qtd(tabela, valores: tuple):
     Se não existir → insere novo
     """
     cur, con = get_db_handlrs()
-    nome, valor, qtd = valores
+    if tabela == 'produtos':
+        nome, valor, qtd = valores
 
-    # Verifica se já existe
-    cur.execute(f'SELECT pk, qtd FROM {tabela} WHERE nome = ?', (nome,))
-    resultado = cur.fetchone()
+        # Verifica se já existe para apenas incrementar a qtd na mesma
+        cur.execute(f'SELECT pk, qtd FROM {tabela} WHERE nome = ?', (nome,))
+        resultado = cur.fetchone()
 
-    if resultado and tabela == 'produtos':
-        # Já existe → atualiza a quantidade
-        id_existente, qtd_atual = resultado
-        nova_qtd = qtd_atual + int(qtd)
+        if resultado:
+            # Já existe → atualiza a quantidade
+            id_existente, qtd_atual = resultado
+            nova_qtd = qtd_atual + int(qtd)
 
+            cur.execute(
+                f'UPDATE {tabela} SET qtd = ?, valor = ? WHERE pk = ?',
+                (nova_qtd, valor, id_existente)
+            )
+            con.commit()
+            
+
+        else:
+            cur.execute(
+                    f'INSERT INTO {tabela} (nome, valor, qtd) VALUES (?, ?, ?)',
+                    (nome, valor, qtd)
+                )
+            con.commit()
+
+    elif tabela == 'fluxo_vendas':
+        print('****INSERINDO REG VENDA')
         cur.execute(
-            f'UPDATE {tabela} SET qtd = ?, valor = ? WHERE pk = ?',
-            (nova_qtd, valor, id_existente)
-        )
-    else:
-        # Não existe → insere novo
-        cur.execute(
-            f'INSERT INTO {tabela} (nome, valor, qtd) VALUES (?, ?, ?)',
-            (nome, valor, qtd)
-        )
-
-    con.commit()
+            f"INSERT INTO {tabela} (valor, data_hora_operacao) VALUES (?, datetime('now', 'localtime'))",
+            (valores[0]) #valor
+            )
+        
+        con.commit()
 
 #consultar
 def db_query(elemnt,tabela,condicao=''):
@@ -87,3 +101,5 @@ def remover_qtd(tabela, nome, qtd_retirar):
     )
     con.commit()
     return True
+
+#operacoes de finanças
