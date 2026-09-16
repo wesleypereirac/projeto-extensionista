@@ -37,7 +37,7 @@ def atualizar():
     valor = request.form.get('valor')
     qtd = request.form.get('qtd')
 
-    db_handle.db_update('produtos', id_produto, (nome, valor, qtd))  # você adapta sua função
+    db_handle.db_update('produtos', int(id_produto), (nome, valor, qtd))  # você adapta sua função
 
     flash("Produto atualizado com sucesso!", "success")
     return redirect(url_for('estoque'))

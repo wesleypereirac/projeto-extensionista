@@ -65,9 +65,9 @@
                 <strong>Qtd:</strong> {{ reg[3] }}
             </p>
 
-            <button type="button" onclick="abrirEdicao({{ reg[0] }})">Editar</button>
-            <button type="button" onclick="confirmarDelete({{ reg[0] }}, '{{ reg[1] }}')">Deletar</button>
-            <button type="button" onclick="retirarQtd('{{ reg[1] }}', {{ reg[3] }})">Retirar</button>
+            <button type="button" onclick="abrirEdicao('{{ reg[0] }}')">Editar</button>
+            <button type="button" onclick="confirmarDelete('{{ reg[0] }}', '{{ reg[1] }}')">Deletar</button>
+            <button type="button" onclick="retirarQtd('{{ reg[1] }}', '{{ reg[3] }}')">Retirar</button>
 
             <form action="/atualizar" method="POST" id="form-{{ reg[0] }}" style="display: none; margin-top: 10px;">
                 <input type="hidden" name="id" value="{{ reg[0] }}">
@@ -84,7 +84,7 @@
 
                 <div class="enviar">
                     <button type="submit">Salvar</button>
-                    <button type="button" onclick="fecharEdicao({{ reg[0] }})">Cancelar</button>
+                    <button type="button" onclick="fecharEdicao('{{ reg[0] }}')">Cancelar</button>
                 </div>
             </form>
         </div>
@@ -93,7 +93,8 @@
         {% endfor %}
     </div>
     <script>
-        function retirarQtd(nome, qtdAtual) {
+function retirarQtd(nome, qtdAtual) {
+    qtdAtual = parseInt(qtdAtual);
     const qtd = prompt(`Quantidade atual: ${qtdAtual}\nQuanto deseja retirar?`);
 
     if (qtd === null) return; // cancelou
@@ -131,15 +132,15 @@
     form.submit();
 }
 
-        function abrirEdicao(id) {
-            document.getElementById('form-' + id).style.display = 'block';
-        }
+function abrirEdicao(id) {
+    document.getElementById('form-' + id).style.display = 'block';
+}
 
-        function fecharEdicao(id) {
-            document.getElementById('form-' + id).style.display = 'none';
-        }
+function fecharEdicao(id) {
+    document.getElementById('form-' + id).style.display = 'none';
+}
 
-        function confirmarDelete(id, nome) {
+function confirmarDelete(id, nome) {
     const confirmou = confirm(`Tem certeza que deseja excluir o produto "${nome}"?`);
 
     if (confirmou) {
@@ -159,6 +160,6 @@
     }
 }
     </script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='global_script.js') }}"></script>
 </body>
 </html>
