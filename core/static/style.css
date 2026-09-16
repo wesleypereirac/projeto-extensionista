@@ -67,3 +67,20 @@
     padding-top: 10px;
     border-top: 1px solid #ddd;
 }
+
+.destylize-a-tag  {
+    text-decoration: none;   /* remove o sublinhado */
+    color: inherit;          /* herda a cor do elemento pai */
+}
+
+.destylize-a-tag:visited {
+    color: inherit;          /* mantém a mesma cor depois de clicar */
+}
+
+.destylize-a-tag:hover {
+    color: inherit;          /* mantem cor ao mouse estar sobre*/
+}
+
+.destylize-a-tag:active {
+    color: inherit;          /*  mantém a cor ao clicar */
+}

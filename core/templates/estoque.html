@@ -20,29 +20,14 @@
             border-radius: 10px;
             background-color: yellow;
         }
-        #btn-cadastrar-produto a {
-            text-decoration: none;   /* remove o sublinhado */
-            color: inherit;          /* herda a cor do elemento pai */
-        }
-
-        #btn-cadastrar-produto a:visited {
-            color: inherit;          /* mantém a mesma cor depois de clicar */
-        }
-
-        #btn-cadastrar-produto a:hover {
-            color: inherit;          /* opcional: mantém a cor no hover */
-        }
-
-        #btn-cadastrar-produto a:active {
-            color: inherit;          /* opcional: mantém a cor ao clicar */
-        }
+       
     </style>
     <title>Estoque</title>
 </head>
 <body >
     <h2>Estoque</h2>
 
-    <span id="btn-cadastrar-produto"><a href="/cadastrar">CADASTRAR PRODUTO</a></span>
+    <span id="btn-cadastrar-produto"><a class="destylize-a-tag" href="/cadastrar">CADASTRAR PRODUTO</a></span>
     
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
