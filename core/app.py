@@ -50,8 +50,8 @@ def estoque():
 
     return render_template('estoque.html',context=lista_dados)
 
-@app.route('/deletar', methods=['POST'])
-def deletar():
+@app.route('/deletar_produto', methods=['POST'])
+def del_produto():
     id_produto = request.form.get('id')
 
     db_handle.db_delete('produtos', id_produto)  # adapte para sua função
@@ -82,17 +82,16 @@ def retirar():
 
 
 #BLOCO: finanças
-@app.route('/registrar_venda', methods=['GET', 'POST'])
+@app.route('/registrar_venda', methods=['POST'])
 def reg_venda():
 
     if request.method == "POST":
         valor = request.form.get('valor_venda')
         db_handle.db_insert_or_update_qtd('fluxo_caixa',(valor))
         flash("Venda registrada com sucesso!", "success") 
-        return redirect(url_for("reg_venda"))
+        return redirect(url_for("list_vendas"))
     
-    else:
-        return render_template('fluxo_vendas.html')
+    
 
 @app.route('/listar_vendas',methods=['GET','POST'])
 def list_vendas():

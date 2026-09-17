@@ -52,7 +52,7 @@ function confirmarDelete(id, nome) {
         // Cria um formulário temporário e envia
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = '/deletar';
+        form.action = '/deletar_produto';
 
         const input = document.createElement('input');
         input.type = 'hidden';

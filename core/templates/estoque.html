@@ -30,8 +30,9 @@
     <h2>Estoque</h2>
 
     <span id="btn-cadastrar-produto"><a class="destylize-a-tag" href="/cadastrar_produto">CADASTRAR PRODUTO</a></span>
-    <span id="btn-fluxo-caixa"><a class="destylize-a-tag" href="/fluxo-financas">VER FLUXO FINANCAS</a></span>
+    <span id="btn-fluxo-caixa"><a class="destylize-a-tag" href="/registrar_venda">VER FLUXO FINANCAS</a></span>
 
+    <!-- MENSAGERIA (SUCESSO, ETC) -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for category, message in messages %}
@@ -42,6 +43,7 @@
     {% endif %}
     {% endwith %}
 
+    <!-- RENDERIZACAO DOS CARDS -->
     <div class="cont">
 
         {% for reg in context %}
