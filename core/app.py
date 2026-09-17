@@ -54,7 +54,7 @@ def estoque():
 def del_produto():
     id_produto = request.form.get('id')
 
-    db_handle.db_delete('produtos', id_produto)  # adapte para sua função
+    db_handle.db_delete('produtos', id_produto)
 
     flash("Produto excluído com sucesso!", "success")
     return redirect(url_for('estoque'))
@@ -82,6 +82,8 @@ def retirar():
 
 
 #BLOCO: finanças
+
+##operacoes
 @app.route('/registrar_venda', methods=['POST'])
 def reg_venda():
 
@@ -115,6 +117,43 @@ def list_vendas():
     )
     list_regs.append(filtro)
     return render_template('fluxo_vendas.html',context=list_regs)
+
+##requisicoes das paginas
+@app.route('/deletar_venda', methods=['POST'])
+def del_venda():
+    id_produto = request.form.get('id')
+
+    db_handle.db_delete('fluxo_caixa', id_produto) 
+
+    flash("Venda excluído com sucesso!", "success")
+    return redirect(url_for('list_vendas'))
+
+@app.route("/vendas")
+def vendas():
+    periodo_get = request.args.get("periodo")
+
+
+    # consulta no banco usando periodo...
+    periodos = {
+    'today': '0 days',
+    'last7days': '-6 days',
+    'last30days': '-29 days',
+    }
+
+    periodo = periodos[periodo_get]
+
+    list_regs = db_handle.db_query(
+        '*',
+        'fluxo_caixa',
+        f"""WHERE data_hora_operacao >= datetime('now', 'localtime', '{periodo}', 'start of day')
+        AND data_hora_operacao <= datetime('now', 'localtime')"""
+    )
+
+    total = 0
+    for i in list_regs:
+        total += i[1]
+
+    return {"total": total}
 
 #run
 app.run(debug=True)

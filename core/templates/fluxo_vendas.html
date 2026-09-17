@@ -41,6 +41,8 @@
 <body>
     <h1>Fluxo Venda</h1>
 
+    <span class="btn-aba"><a class="destylize-a-tag" href="/estoque">VER ESTOQUE</a></span>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
@@ -53,10 +55,24 @@
 
     <div class="registro-venda">
         <h2>Registrar Venda:</h2>
-        <form action="/registrar_venda" method="POST">
+        <form id="venda-form" action="/registrar_venda" method="POST">
             Valor: <input type="number" name="valor_venda">
-            <input type="submit" value="Enviar">
+            <input type="button" value="Enviar">
         </form>
+    </div>
+
+    <div>
+        <p>Valor Total: </p>
+        <span id="log_valor_vendas">R$: </span>
+        
+        <select name="filtro_total_vendas" id="filtro_total_vendas">
+            <option value="today">Hoje</option>
+            <option value="last7days">Últimos 7 dias</option>
+            <option value="last30days">Últimos 30 dias</option>
+        </select>
+
+        <!-- <button type="submit">Filtrar</button> -->
+    
     </div>
 
     <div class="list-vendas">
@@ -66,6 +82,7 @@
         <!-- lista do mesmo dia juntas (separa dias com espaço consideravel) e ordena de acordo com a hora (mais recente) -->
         <!-- reutilizar card to estoque? -->
 
+        <!-- obs: o vendas_script.js faz o envio ao clicar em uma opcao -->
         <form method="POST" action="/listar_vendas">
             <select name="filtro" id="filtro">
                 <option value="last3days">Últimos 3 dias</option>
@@ -74,22 +91,28 @@
                 <option value="last1year">Último ano</option>
             </select>
 
-            <button type="submit">Filtrar</button>
+            <!-- <button type="submit">Filtrar</button> -->
         </form>
 
-        <span>Filtro:  {{ context[-1] }}</span>
+        <span id="filtro_atual" style="display:none;">{{ context[-1] }}</span>
         
         <div class="div-lista">
             {% for reg in context[:-1] %}
             <div class="card_valor">
-                <span class="card-name">Registro</span>  <!-- bold e centralizada -->
-                <span class="card-val">R$: {{ reg[1] }}</span>
-                <span class="card-val">Data: {{ reg[2] }}</span>
+                
+                <p>
+                    <span class="card-name">Registro</span>  <!-- bold e centralizada-->
+                    <span class="card-val">R$: {{ reg[1] }}</span>
+                    <span class="card-val">Data: {{ reg[2] }}</span>
+                </p>
+
+                <button type="button" onclick="confirmarDelete('{{ reg[0] }}', '{{ reg[1] }}')">Deletar</button>
             </div>
             {% endfor %}
         </div>
     </div>
 
     <script src="{{ url_for('static',filename='global_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendas_script.js') }}"></script>
 </body>
 </html>

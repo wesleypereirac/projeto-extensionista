@@ -15,13 +15,13 @@
             text-align: center;
         }
 
-        #btn-cadastrar-produto{
+        /* .btn-aba{
             width: 100px;
             height: 50px;
             border: 2px solid black;
             border-radius: 10px;
             background-color: yellow;
-        }
+        } */
        
     </style>
     <title>Estoque</title>
@@ -29,8 +29,8 @@
 <body >
     <h2>Estoque</h2>
 
-    <span id="btn-cadastrar-produto"><a class="destylize-a-tag" href="/cadastrar_produto">CADASTRAR PRODUTO</a></span>
-    <span id="btn-fluxo-caixa"><a class="destylize-a-tag" href="/registrar_venda">VER FLUXO FINANCAS</a></span>
+    <span class="btn-aba"><a class="destylize-a-tag" href="/cadastrar_produto">CADASTRAR PRODUTO</a></span>
+    <span class="btn-aba"><a class="destylize-a-tag" href="/listar_vendas">VER FLUXO CAIXA</a></span>
 
     <!-- MENSAGERIA (SUCESSO, ETC) -->
     {% with messages = get_flashed_messages(with_categories=true) %}
