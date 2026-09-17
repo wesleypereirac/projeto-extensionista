@@ -89,7 +89,7 @@ def reg_venda():
 
     if request.method == "POST":
         valor = request.form.get('valor_venda')
-        db_handle.db_insert_or_update_qtd('fluxo_caixa',(valor))
+        db_handle.db_insert_or_update_qtd('fluxo_caixa',(valor,))
         flash("Venda registrada com sucesso!", "success") 
         return redirect(url_for("list_vendas"))
     
@@ -125,7 +125,7 @@ def del_venda():
 
     db_handle.db_delete('fluxo_caixa', id_produto) 
 
-    flash("Venda excluído com sucesso!", "success")
+    flash("Venda excluída com sucesso!", "success")
     return redirect(url_for('list_vendas'))
 
 @app.route("/vendas")

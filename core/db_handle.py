@@ -49,7 +49,7 @@ def db_insert_or_update_qtd(tabela, valores: tuple):
     elif tabela == 'fluxo_caixa':
         cur.execute(
             f"INSERT INTO {tabela} (valor, data_hora_operacao) VALUES (?, datetime('now', 'localtime'))",
-            (valores[0]) #valor
+            (valores[0],) #valor
             )
         
         con.commit()
