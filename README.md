@@ -4,7 +4,7 @@
 # setup
 
 ## entrar na pasta do sistema
-git clone....
+git clone https://github.com/wesleypereirac/projeto-extensionista/
 cd projeto-extensionista/core
 
 ## Criar o ambiente virtual
@@ -18,3 +18,9 @@ python -m venv venv
 
 ## Instalar as dependências
 pip install -r requirements.txt
+
+# usage
+
+- dentro de projeto-extensionista/core
+- python app.py
+- acessar localhost:5000
