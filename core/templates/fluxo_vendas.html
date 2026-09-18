@@ -79,6 +79,7 @@
             <span id="filtro_atual" style="display:none;">{{ context[-1] }}</span>
 
             <div class="div-lista">
+                <!-- []:-1] importante pois tem string no fim q nao pode ser iterada -->
                 {% for reg in context[:-1] %}
                     <article class="card_valor">
                         <!-- Área reservada para o futuro ícone monetário.

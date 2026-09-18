@@ -547,3 +547,272 @@ span {
 @media (max-width: 390px) {
   .estoque-grid { grid-template-columns: 1fr; }
 }
+
+/* =========================================================
+   FLUXO VENDA — estilos específicos
+   Tudo aqui usa .fluxo-page para não alterar outras páginas.
+   Espelha os padrões visuais já usados em .estoque-page.
+   ========================================================= */
+
+.fluxo-page { min-height: 100vh; background: var(--color-page); }
+
+.fluxo-page .page-header {
+  width: 100%;
+  padding: 2.1rem 1rem 2rem;
+}
+
+.fluxo-page .page-header h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 2vw + 1rem, 2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.fluxo-main {
+  width: 100%;
+  padding: 0 1.25rem 2rem;
+}
+
+.fluxo-page .breadcrumb {
+  min-height: 45px;
+  padding: 1.1rem .2rem 0;
+}
+
+.fluxo-page .breadcrumb-current {
+  color: var(--color-ink);
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.fluxo-btn-estoque {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 241px;
+  height: 53px;
+  margin: 1.8rem 0 1.35rem;
+  padding: .7rem 1rem;
+  border: none;
+  border-radius: .65rem;
+  background: #ff8b35;
+  color: #111;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-align: center;
+  transition: filter .15s ease, transform .15s ease;
+}
+
+.fluxo-btn-estoque:hover { filter: brightness(.96); transform: translateY(-1px); }
+
+.fluxo-resumo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1.8rem;
+  width: 100%;
+  margin: 0 0 1.8rem;
+  padding: 1.75rem;
+  background: #d4d4d4;
+  border-radius: 1rem;
+}
+
+.registro-venda,
+.valor-total {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 1.3rem 1.35rem;
+  background: #fff;
+  border-radius: var(--radius-card);
+}
+
+.registro-venda h2,
+.valor-total h2 {
+  margin: 0 0 1.1rem;
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+#venda-form {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+
+#venda-form label {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+#venda-form input[type="number"] {
+  width: 100%;
+  height: 44px;
+  padding: 0 .85rem;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-input);
+  background: var(--color-input);
+  color: var(--color-ink);
+  font-size: 16px;
+}
+
+#venda-form input[type="number"]:focus {
+  outline: 2px solid #f5c400;
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.fluxo-submit {
+  align-self: flex-start;
+  margin-top: .3rem;
+  min-height: 42px;
+  padding: 0 1.8rem;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
+  font-size: .92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fluxo-submit:hover { background: var(--color-primary-hover); }
+
+.valor-total-dados {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  flex-wrap: wrap;
+}
+
+#log_valor_vendas {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+#filtro_total_vendas {
+  height: 38px;
+  padding: 0 .6rem;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-input);
+  background: var(--color-input);
+  color: var(--color-ink);
+  font-size: .85rem;
+}
+
+.list-vendas h2 {
+  margin: 0 0 1rem;
+  font-size: 1.28rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.historico-filtro { margin-bottom: 1.1rem; }
+
+.historico-filtro select {
+  height: 38px;
+  padding: 0 .6rem;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-input);
+  background: var(--color-input);
+  color: var(--color-ink);
+  font-size: .85rem;
+}
+
+.div-lista {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 1.6rem;
+  background: #d4d4d4;
+  border-radius: 1rem;
+}
+
+.card_valor {
+  display: flex;
+  flex-direction: column;
+  min-height: 130px;
+  padding: .9rem 1rem 1rem;
+  border: none;
+  border-radius: 1.1rem;
+  background: #fff;
+  box-shadow: none;
+}
+
+.venda-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 44px;
+  margin-bottom: .3rem;
+  overflow: hidden;
+}
+
+.venda-icon img { display: block; width: 40px; height: 40px; object-fit: contain; }
+
+.venda-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  min-width: 0;
+}
+
+.card-name {
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.card-val {
+  font-size: .78rem;
+  color: var(--color-muted);
+  overflow-wrap: anywhere;
+}
+
+.card_valor button {
+  align-self: flex-start;
+  margin-top: .65rem;
+  height: 26px;
+  padding: 0 .9rem;
+  border: none;
+  border-radius: .55rem;
+  background: #ff5b5b;
+  color: #111;
+  font-family: inherit;
+  font-size: .7rem;
+  cursor: pointer;
+}
+
+.card_valor button:hover { filter: brightness(.93); }
+
+.fluxo-page .flash-msg {
+  max-width: 700px;
+  margin: 1rem auto;
+}
+
+@media (max-width: 1200px) {
+  .div-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .fluxo-resumo { grid-template-columns: 1fr; gap: 1.2rem; }
+  .div-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; padding: 1.2rem; }
+}
+
+@media (max-width: 650px) {
+  .fluxo-main { padding-left: .8rem; padding-right: .8rem; }
+  .fluxo-btn-estoque { width: min(100%, 300px); }
+  .valor-total-dados { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 390px) {
+  .div-lista { grid-template-columns: 1fr; }
+}
