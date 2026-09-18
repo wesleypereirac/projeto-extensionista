@@ -1,5 +1,6 @@
 import db_handle as db_handle
 from flask import Flask, request, render_template, flash, redirect, url_for
+import logging
 
 app = Flask('app.py')
 app.config["SECRET_KEY"] = "wlsec"
@@ -156,4 +157,9 @@ def vendas():
     return {"total": total}
 
 #run
-app.run(debug=True)
+
+cli = logging.getLogger("werkzeug")
+cli.setLevel(logging.ERROR)
+
+if __name__ == '__main__':
+    app.run(debug=False)
