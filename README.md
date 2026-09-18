@@ -3,27 +3,30 @@
 
 # setup
 
-## entrar na pasta do sistema
+## Baixar repositório e criar ambiente virtual
+```bash
 git clone https://github.com/wesleypereirac/projeto-extensionista/
 cd projeto-extensionista/core
-
-## Criar o ambiente virtual
 python -m venv venv
+```
 
-## Ativar o venv (escolher de acordo com o sistema)
+## Ativar o venv no Linux/Mac
+```bash
+source venv/bin/activate
+```
 
-- Linux/Mac: source venv/bin/activate
+## Ativar venv no Windows
+```bash
+venv\Scripts\activate
+```
 
-- Windows: venv\Scripts\activate
 
-## Instalar as dependências
+## Instalar as dependências e rodar servidor
+```bash
 pip install -r requirements.txt
 
-# usage
+python app.py
+```
 
-- dentro de projeto-extensionista/core
-- python app.py
-- acessar localhost:5000
-
-# Observações
-- O banco de dados não é versionado, é criado localmente. 
+## Url para abrir site local
+  [acessar localhost:5000](http://localhost:5000)
