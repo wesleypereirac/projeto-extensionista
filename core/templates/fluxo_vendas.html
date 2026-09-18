@@ -1,118 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>Registro Vendas</title>
-
-    <style>
-        
-        .list-vendas{
-            padding-top: 50px;
-            text-align: left;
-            width: 100%;
-        }
-        
-        .registro-venda{
-            text-align: left;
-
-        }
-
-        .div-lista{
-            width: 100%;
-        }
-
-        .card_valor{
-            width: 160px;
-            height: 90px;
-            background-color: gray;
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-            color: white;
-        }
-
-
-    
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Fluxo Venda</title>
 </head>
-<body>
-    <h1>Fluxo Venda</h1>
 
-    <span class="btn-aba"><a class="destylize-a-tag" href="/estoque">VER ESTOQUE</a></span>
+<body class="fluxo-page">
+    <header class="page-header">
+        <h1>Fluxo Venda</h1>
+    </header>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="mensagem-{{ category }} flash-msg">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+    <main class="fluxo-main">
+        <nav class="breadcrumb" aria-label="Navegação">
+            <span class="breadcrumb-current">Fluxo Venda</span>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        </nav>
 
-    <div class="registro-venda">
-        <h2>Registrar Venda:</h2>
-        <form id="venda-form" action="/registrar_venda" method="POST">
-            Valor: <input type="number" name="valor_venda">
-            <input type="button" value="Enviar">
-        </form>
-    </div>
+        <a class="fluxo-btn-estoque destylize-a-tag" href="/estoque">
+            Ver Estoque
+        </a>
 
-    <div>
-        <p>Valor Total: </p>
-        <span id="log_valor_vendas">R$: </span>
-        
-        <select name="filtro_total_vendas" id="filtro_total_vendas">
-            <option value="today">Hoje</option>
-            <option value="last7days">Últimos 7 dias</option>
-            <option value="last30days">Últimos 30 dias</option>
-        </select>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mensagem-{{ category }} flash-msg">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-        <!-- <button type="submit">Filtrar</button> -->
-    
-    </div>
+        <section class="fluxo-resumo">
+            <div class="registro-venda">
+                <h2>Registrar Venda</h2>
 
-    <div class="list-vendas">
-        <h2>Histórico Vendas: </h2>
-        
-        <!-- obs: mostrar só ultimos 3 dias? e ter botao pra carregar historico todo? -->
-        <!-- lista do mesmo dia juntas (separa dias com espaço consideravel) e ordena de acordo com a hora (mais recente) -->
-        <!-- reutilizar card to estoque? -->
+                <form id="venda-form" action="/registrar_venda" method="POST">
+                    <label for="valor-venda">Valor:</label>
+                    <input id="valor-venda"
+                           type="number"
+                           name="valor_venda"
+                           step="0.01"
+                           min="0">
 
-        <!-- obs: o vendas_script.js faz o envio ao clicar em uma opcao -->
-        <form method="POST" action="/listar_vendas">
-            <select name="filtro" id="filtro">
-                <option value="last3days">Últimos 3 dias</option>
-                <option value="last7days">Últimos 7 dias</option>
-                <option value="last30days">Últimos 30 dias</option>
-                <option value="last1year">Último ano</option>
-            </select>
-
-            <!-- <button type="submit">Filtrar</button> -->
-        </form>
-
-        <span id="filtro_atual" style="display:none;">{{ context[-1] }}</span>
-        
-        <div class="div-lista">
-            {% for reg in context[:-1] %}
-            <div class="card_valor">
-                
-                <p>
-                    <span class="card-name">Registro</span>  <!-- bold e centralizada-->
-                    <span class="card-val">R$: {{ reg[1] }}</span>
-                    <span class="card-val">Data: {{ reg[2] }}</span>
-                </p>
-
-                <button type="button" onclick="confirmarDelete('{{ reg[0] }}', '{{ reg[1] }}')">Deletar</button>
+                    <input class="fluxo-submit" type="submit" value="enviar">
+                </form>
             </div>
-            {% endfor %}
-        </div>
-    </div>
 
-    <script src="{{ url_for('static',filename='global_script.js') }}"></script>
+            <div class="valor-total">
+                <h2>Valor Total</h2>
+
+                <div class="valor-total-dados">
+                    <span id="log_valor_vendas">R$: </span>
+
+                    <select name="filtro_total_vendas" id="filtro_total_vendas">
+                        <option value="today">Hoje</option>
+                        <option value="last7days">Últimos 7 dias</option>
+                        <option value="last30days">Últimos 30 dias</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section class="list-vendas">
+            <h2>Histórico Vendas</h2>
+
+            <!-- O vendas_script.js faz o envio ao selecionar uma opção. -->
+            <form method="POST" action="/listar_vendas" class="historico-filtro">
+                <select name="filtro" id="filtro">
+                    <option value="last3days">Últimos 3 dias</option>
+                    <option value="last7days">Últimos 7 dias</option>
+                    <option value="last30days">Últimos 30 dias</option>
+                    <option value="last1year">Último ano</option>
+                </select>
+            </form>
+
+            <span id="filtro_atual" style="display:none;">{{ context[-1] }}</span>
+
+            <div class="div-lista">
+                {% for reg in context[:-1] %}
+                    <article class="card_valor">
+                        <!-- Área reservada para o futuro ícone monetário.
+                             Depois, basta colocar a URL no src do img.
+                             Exemplo:
+                             <img src="/static/img/dinheiro.png" alt="Venda">
+                        -->
+                        <div class="venda-icon">
+                            <!-- <img src="URL_DO_ICONE" alt="Ícone da venda"> -->
+                        </div>
+
+                        <div class="venda-info">
+                            <span class="card-name">Registro</span>
+                            <span class="card-val">R$: {{ reg[1] }}</span>
+                            <span class="card-val">Data: {{ reg[2] }}</span>
+                        </div>
+
+                        <button type="button"
+                                onclick="confirmarDelete('{{ reg[0] }}', '{{ reg[1] }}')">
+                            deletar
+                        </button>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='global_script.js') }}"></script>
     <script src="{{ url_for('static', filename='vendas_script.js') }}"></script>
 </body>
 </html>

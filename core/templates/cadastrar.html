@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -8,44 +8,56 @@
 </head>
 
 <body>
-  <h1>Cadastrar Produto</h1>
-  <div class="cont">
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="mensagem-{{ category }} flash-msg">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+  <header class="page-header">
+    <h1>Cadastrar Produto</h1>
+  </header>
 
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a class="breadcrumb-link" href="/estoque">Estoque</a>
+    <span class="breadcrumb-sep" aria-hidden="true">›</span>
+    <span class="breadcrumb-current">Cadastrar Produto</span>
+  </nav>
 
-<span id="total-itens">0 itens adicionados.</span>
-<form class="form" action="/cadastrar_produto" method="POST">
+  <div class="page-body">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="mensagem-{{ category }} flash-msg">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-  <div class="input">
-    <span>Nome Produto: </span>
-    <input name="nome_produto">
+    <span id="total-itens">0 itens adicionados.</span>
+
+    <section class="cadastro-card">
+      <h2>Informações do Produto</h2>
+
+      <form class="cadastro-form" action="/cadastrar_produto" method="POST">
+        <label class="cadastro-field">
+          <span>Nome do Produto</span>
+          <input type="text" name="nome_produto" required>
+        </label>
+
+        <label class="cadastro-field">
+          <span>Valor (R$)</span>
+          <input type="number" name="valor_produto" step="0.01" min="0" required>
+        </label>
+
+        <label class="cadastro-field">
+          <span>Quantidade em Estoque</span>
+          <input type="number" name="qtd_produto" min="0" step="1" required>
+        </label>
+
+        <div class="cadastro-actions">
+          <button class="btn-cadastrar" type="submit">Cadastrar</button>
+          <a id="ver-estoque" class="btn-ver-estoque destylize-a-tag" href="/estoque">Ver Estoque</a>
+        </div>
+      </form>
+    </section>
   </div>
 
-  <div class="input">
-    <span>Valor: </span>
-    <input name="valor_produto">
-  </div>
-
-  <div class="input">
-    <span>Qtd.: </span>
-    <input name="qtd_produto">
-  </div>
-
-  <div class="enviar">
-       <input type="submit" value="Enviar">
-  </div>
-
-</form>
-<span id="ver-estoque"> <a class="destylize-a-tag" href="/estoque">Ver Estoque</a></span>
-</div>
-<script src="{{ url_for('static', filename='global_script.js') }}"></script>
+  <script src="{{ url_for('static', filename='global_script.js') }}"></script>
 </body>
 </html>
