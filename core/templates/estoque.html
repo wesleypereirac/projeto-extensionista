@@ -21,7 +21,7 @@
                 CADASTRAR PRODUTO
             </a>
             <a class="estoque-btn estoque-btn-fluxo destylize-a-tag" href="/listar_vendas">
-                VER FLUXO CAIXA
+                VER FLUXO VENDA
             </a>
         </nav>
 
@@ -59,12 +59,15 @@
                         <input type="hidden" name="id" value="{{ reg[0] }}">
 
                         <div class="input">
+                            <span>Nome</span>
                             <input type="text" name="nome" value="{{ reg[1] }}" placeholder="Nome">
                         </div>
                         <div class="input">
+                            <span>Valor</span>
                             <input type="number" name="valor" value="{{ reg[2] }}" step="0.01" placeholder="Valor">
                         </div>
                         <div class="input">
+                            <span>Qtd</span>
                             <input type="number" name="qtd" value="{{ reg[3] }}" min="0" step="1" placeholder="Quantidade">
                         </div>
 

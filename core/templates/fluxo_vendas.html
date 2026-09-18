@@ -80,7 +80,7 @@
 
             <div class="div-lista">
                 <!-- []:-1] importante pois tem string no fim q nao pode ser iterada -->
-                {% for reg in context[:-1] %}
+                {% for reg in context[:-1]|reverse %}
                     <article class="card_valor">
                         <!-- Área reservada para o futuro ícone monetário.
                              Depois, basta colocar a URL no src do img.
@@ -88,7 +88,7 @@
                              <img src="/static/img/dinheiro.png" alt="Venda">
                         -->
                         <div class="venda-icon">
-                            <!-- <img src="URL_DO_ICONE" alt="Ícone da venda"> -->
+                            <img src="{{ url_for('static', filename='imagens/icone-venda.webp') }}" alt="Descrição da Imagem">
                         </div>
 
                         <div class="venda-info">
