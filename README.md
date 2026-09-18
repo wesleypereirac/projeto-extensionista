@@ -24,3 +24,6 @@ pip install -r requirements.txt
 - dentro de projeto-extensionista/core
 - python app.py
 - acessar localhost:5000
+
+# Observações
+- O banco de dados não é versionado, é criado localmente. 
