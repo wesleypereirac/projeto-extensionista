@@ -1,5 +1,8 @@
-- breve descrição
-- passos para iniciar (server, etc e urls:porta)
+# Projeto Extensionista - Gestão de Estoque e Vendas
+
+Este projeto foi desenvolvido como parte de uma Atividade Extensionista e tem como objetivo auxiliar o gerenciamento de produtos em estoque e o registro de valores das vendas.
+
+A aplicação utiliza HTML, CSS, JavaScript e Python e permite realizar o cadastro e gerenciamento de produtos, o controle do estoque e o registro das vendas realizadas. Este repositório contém o código-fonte e as instruções necessárias para executar o projeto localmente.
 
 # setup
 
