@@ -23,7 +23,7 @@ source venv/bin/activate
 ```
 
 ### Para Windows 
-::(PowerShell)
+:: (PowerShell)
 ```bash
 venv\Scripts\Activate.ps1
 ```
