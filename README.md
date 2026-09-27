@@ -16,14 +16,20 @@ cd projeto-extensionista/core
 python -m venv venv
 ```
 
-## Ativar o venv no Linux/Mac
+## Ativação do venv:
+### Para Linux/Mac
 ```bash
 source venv/bin/activate
 ```
 
-## Ativar venv no Windows
+### Para Windows 
+::(PowerShell)
 ```bash
-venv\Scripts\activate
+venv\Scripts\Activate.ps1
+```
+:: (CMD)
+```bash
+venv\Scripts\activate.bat
 ```
 
 
@@ -36,3 +42,7 @@ python app.py
 
 ## Abrir url do site local
 - Acessar [localhost:5000](http://localhost:5000)
+- Com o repo configurado uma vez, nas próximas inicializações basta [ativar o venv](#ativação-do-venv) e rodar o comando abaixo:
+```bash
+python app.py
+```
