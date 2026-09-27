@@ -6,6 +6,9 @@ A aplicação utiliza HTML, CSS, JavaScript e Python e permite realizar o cadast
 
 # Setup - Clonar o repositório e rodar a aplicação
 
+## Dependências
+- Ferramentas Python e Git já instalados
+
 ## Baixar repositório e criar ambiente virtual
 ```bash
 git clone https://github.com/wesleypereirac/projeto-extensionista/
