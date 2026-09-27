@@ -34,5 +34,5 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## Url para abrir site local
+## Abrir url do site local
 - Acessar [localhost:5000](http://localhost:5000)
