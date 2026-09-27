@@ -35,4 +35,4 @@ python app.py
 ```
 
 ## Url para abrir site local
-  [acessar localhost:5000](http://localhost:5000)
+- Acessar [localhost:5000](http://localhost:5000)
